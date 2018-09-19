@@ -18,3 +18,8 @@ Opinionated Magento 1 docker image.
  - Ruby
  - runit
  - sassc
+
+## TODO(tom)
+
+ - Log real IP from nginx
+ - Clean up php-fpm output with fifo

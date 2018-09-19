@@ -6,7 +6,7 @@ MAINTAINER Tom Richards <tom.r@delegator.com>
 # - nullmailer
 # - supervisord
 RUN apk add --update --no-cache \
-  php7 php7-bcmath php7-curl php7-dom php7-fpm php7-gd php7-iconv php7-intl php7-opcache php7-pdo_mysql php7-soap php7-xsl php7-xml php7-zip \
+  php7 php7-bcmath php7-ctype php7-curl php7-dom php7-fpm php7-gd php7-iconv php7-intl php7-opcache php7-pdo_mysql php7-soap php7-xsl php7-xml php7-zip \
   composer php7-xdebug \
   nginx nginx-mod-http-headers-more nginx-mod-http-geoip \
   bash runit \
@@ -30,7 +30,8 @@ RUN rm -f /etc/nginx/conf.d/default.conf; \
 
 # n98-magerun for Magento 1
 RUN curl -sL https://files.magerun.net/n98-magerun-1.101.1.phar -o /usr/local/bin/n98-magerun \
- && chmod +x /usr/local/bin/n98-magerun
+ && chmod +x /usr/local/bin/n98-magerun \
+ && n98-magerun --version
 
 # Port helper
 COPY src/wait-for-port /usr/local/bin/wait-for-port
@@ -41,7 +42,7 @@ COPY ./config/php7 /etc/php7
 COPY ./config/services /services
 COPY ./tester /usr/share/nginx/tester
 
-# Test configuration
+# Test nginx configuration
 RUN /usr/sbin/nginx -T
 
 # Set working directory
