@@ -23,7 +23,7 @@ RUN deluser xfs \
  && adduser -S -D -u 33 -G www-data -s /bin/bash www-data
 
 # Nginx config
-RUN rm -f /etc/nginx/sites-enabled/default; \
+RUN rm -f /etc/nginx/conf.d/default.conf; \
     ln -sf /dev/stdout /var/log/nginx/access.log; \
     ln -sf /dev/stderr /var/log/nginx/error.log;
 
@@ -40,6 +40,9 @@ COPY ./config/php /etc/php
 COPY ./config/php-fpm /etc/php-fpm.d
 COPY ./config/supervisor.d /etc/supervisor.d/
 COPY ./tester /usr/share/nginx/tester
+
+# Test configuration
+RUN /usr/sbin/nginx -T
 
 # Set working directory
 RUN chown -R www-data:www-data /var/www
