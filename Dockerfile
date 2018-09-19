@@ -3,7 +3,7 @@ MAINTAINER Tom Richards <tom.r@delegator.com>
 
 # Install packages
 RUN apk add --update --no-cache \
-  php7 php7-bcmath php7-ctype php7-curl php7-dom php7-fpm php7-gd php7-iconv php7-intl php7-opcache php7-pdo_mysql php7-soap php7-xsl php7-xml php7-zip \
+  php7 php7-bcmath php7-ctype php7-curl php7-dom php7-fpm php7-gd php7-iconv php7-intl php7-opcache php7-pdo_mysql php7-session php7-simplexml php7-soap php7-xsl php7-xml php7-zip \
   composer php7-xdebug \
   nginx nginx-mod-http-headers-more nginx-mod-http-geoip \
   bash runit \
