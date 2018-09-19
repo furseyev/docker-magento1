@@ -14,6 +14,7 @@
             <p>This host is running PHP version <code><?php echo phpversion(); ?></code>.</p>
         </div>
         <hr />
+        <?php $stdout = fopen("php://stdout", "w"); fputs($stdout, "This is a stdout message"); ?>
         <div class="phpinfo">
             <?php phpinfo(); ?>
         </div>
