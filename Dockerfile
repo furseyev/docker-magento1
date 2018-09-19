@@ -2,13 +2,14 @@ FROM alpine:3.8
 MAINTAINER Tom Richards <tom.r@delegator.com>
 
 # Removals:
-# - nullmailer
 # - mcrypt (php)
+# - nullmailer
+# - supervisord
 RUN apk add --update --no-cache \
   php7 php7-bcmath php7-curl php7-dom php7-fpm php7-gd php7-iconv php7-intl php7-opcache php7-pdo_mysql php7-soap php7-xsl php7-xml php7-zip \
   composer php7-xdebug \
   nginx nginx-mod-http-headers-more nginx-mod-http-geoip \
-  bash supervisor \
+  bash runit \
   curl htop git vim wget \
   mysql-client \
   redis \
@@ -37,7 +38,7 @@ COPY src/wait-for-port /usr/local/bin/wait-for-port
 # Install config files and tester site
 COPY ./config/nginx /etc/nginx
 COPY ./config/php7 /etc/php7
-COPY ./config/supervisor.d /etc/supervisor.d/
+COPY ./config/services /services
 COPY ./tester /usr/share/nginx/tester
 
 # Test configuration
@@ -48,7 +49,7 @@ RUN chown -R www-data:www-data /var/www
 WORKDIR /var/www
 
 # Default command
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
+CMD ["/sbin/runsvdir", "/services"]
 
 # Expose ports
 EXPOSE 80
