@@ -7,8 +7,7 @@ RUN apk add --update --no-cache \
   composer php7-xdebug \
   nginx nginx-mod-http-headers-more nginx-mod-http-geoip \
   bash runit \
-  curl htop git vim wget \
-  libxml2-utils \
+  curl htop git libxml2-utils make vim wget \
   mysql-client \
   redis \
   nodejs yarn \
