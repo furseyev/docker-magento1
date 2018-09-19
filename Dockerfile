@@ -28,6 +28,10 @@ RUN rm -f /etc/nginx/conf.d/default.conf; \
     ln -sf /dev/stdout /var/log/nginx/access.log; \
     ln -sf /dev/stderr /var/log/nginx/error.log;
 
+# PHP log config
+ENV PHP_LOG_STREAM="/var/log/php.log"
+RUN mkfifo -m 777 $PHP_LOG_STREAM
+
 # n98-magerun for Magento 1
 RUN curl -sL https://files.magerun.net/n98-magerun-1.101.1.phar -o /usr/local/bin/n98-magerun \
  && chmod +x /usr/local/bin/n98-magerun \

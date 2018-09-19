@@ -21,5 +21,5 @@ Opinionated Magento 1 docker image.
 
 ## TODO(tom)
 
- - Log real IP from nginx
- - Clean up php-fpm output with fifo
+ - [ ] Log real IP from nginx
+ - [x] Clean up PHP log output with fifo

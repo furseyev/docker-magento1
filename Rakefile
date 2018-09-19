@@ -19,5 +19,5 @@ end
 
 desc 'Run the docker image locally for testing'
 task :test do
-  sh 'docker run --rm -p 3000:80 delegator/magento1'
+  sh 'docker run --init --rm -p 3000:80 delegator/magento1'
 end
