@@ -15,6 +15,8 @@
         </div>
         <hr />
         <?php $stdout = fopen("php://stdout", "w"); fputs($stdout, "This is a stdout message"); ?>
+        <?php $stderr = fopen("php://stderr", "w"); fputs($stderr, "This is a stdout message"); ?>
+        <?php $logStream = fopen(getenv("PHP_LOG_STREAM"), "w"); fprintf($logStream, "%s\n", "This is a log stream message"); ?>
         <div class="phpinfo">
             <?php phpinfo(); ?>
         </div>

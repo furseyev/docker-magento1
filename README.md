@@ -19,7 +19,13 @@ Opinionated Magento 1 docker image.
  - runit
  - sassc
 
-## TODO(tom)
+## Getting started
 
- - [ ] Log real IP from nginx
- - [x] Clean up PHP log output with fifo
+```sh-session
+# Build image
+$ rake build
+
+# Test image
+# Visit http://localhost:3000/
+$ rake test
+```
