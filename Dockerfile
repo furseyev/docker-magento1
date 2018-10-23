@@ -1,5 +1,5 @@
 FROM alpine:3.8
-MAINTAINER Tom Richards <tom.r@delegator.com>
+LABEL maintainer="Tom Richards <tom.r@delegator.com>"
 
 # Install packages
 RUN apk add --update --no-cache \
@@ -7,11 +7,10 @@ RUN apk add --update --no-cache \
   composer php7-xdebug \
   nginx nginx-mod-http-headers-more nginx-mod-http-geoip \
   bash runit \
-  curl htop git libxml2-utils make vim wget \
+  curl htop git libxml2-utils make openssh vim wget \
   mysql-client \
   redis \
   nodejs yarn \
-  ruby ruby-dev ruby-rake \
   sassc
 
 # Add non-privileged web server user
@@ -31,8 +30,12 @@ RUN curl -sL https://files.magerun.net/n98-magerun-1.101.1.phar -o /usr/local/bi
  && chmod +x /usr/local/bin/n98-magerun \
  && n98-magerun --version
 
-# Port helper
-COPY src/wait-for-port /usr/local/bin/wait-for-port
+# Install dockerize
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+ && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+ && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+ && dockerize -version
 
 # Install config files and tester site
 COPY ./config/nginx /etc/nginx

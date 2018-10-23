@@ -8,14 +8,13 @@ Opinionated Magento 1 docker image.
 
 ## Included software
 
- - NGINX
+ - nginx
  - php-fpm
 
 ## Extra bits
 
  - Node.js
  - Redis
- - Ruby
  - runit
  - sassc
 
