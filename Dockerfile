@@ -33,6 +33,14 @@ RUN deluser xfs \
  && ln -sf /dev/stderr /var/log/nginx/error.log \
  && mkfifo -m 777 $PHP_LOG_STREAM
 
+# Install prestissimo for parallel composer downloads
+USER www-data
+RUN composer global require hirak/prestissimo \
+ && rm -rf /var/www/.composer/cache
+USER root
+RUN composer global require hirak/prestissimo \
+ && rm -rf /root/.composer/cache
+
 # n98-magerun for Magento 1
 ENV MAGERUN_VERSION 1.102.0
 RUN curl -sL https://files.magerun.net/n98-magerun-$MAGERUN_VERSION.phar -o /usr/local/bin/n98-magerun \
@@ -50,14 +58,14 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 COPY ./config/nginx /etc/nginx
 COPY ./config/php7 /etc/php7
 COPY ./config/services /services
-COPY ./tester /usr/share/nginx/tester
 
 # Test nginx configuration
 RUN /usr/sbin/nginx -T
 
 # Set working directory
-RUN chown -R www-data:www-data /var/www
-WORKDIR /var/www
+RUN mkdir -p /var/www/magento1 \
+ && chown -R www-data:www-data /var/www
+WORKDIR /var/www/magento1
 
 # Default command; run nginx and php-fpm services
 CMD ["/sbin/runsvdir", "/services"]

@@ -10,21 +10,24 @@ Opinionated Magento 1 docker image.
 
  - nginx
  - php-fpm
+ - Redis
+ - MySQL client
+ - msmtp, aliased as sendmail
 
 ## Extra bits
 
  - Node.js
- - Redis
  - runit
  - sassc
+ - dockerize
 
 ## Getting started
 
 ```sh-session
 # Build image
-$ rake build
+docker build -t delegator/magento1 .
 
-# Test image
-# Visit http://localhost:3000/
-$ rake test
+# Test image, visit http://127.0.0.1/
+cd /path/to/magento1/project
+docker run --init --rm -p 80:80 -v $(pwd):/var/www/magento1 delegator/magento1
 ```
