@@ -1,17 +1,25 @@
 FROM alpine:3.8
 LABEL maintainer="Tom Richards <tom.r@delegator.com>"
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.name="delegator/magento1"
+LABEL org.label-schema.description="Opinionated docker image for Magento 1.9."
+LABEL org.label-schema.vcs-url="https://github.com/delegator/docker-magento1"
 
 # Install packages
 RUN apk add --update --no-cache \
   php7 php7-bcmath php7-ctype php7-curl php7-dom php7-fpm php7-gd php7-iconv php7-intl php7-mbstring php7-opcache php7-pdo_mysql php7-session php7-simplexml php7-soap php7-tokenizer php7-xsl php7-xml php7-xmlwriter php7-zip \
   composer php7-xdebug \
-  nginx nginx-mod-http-headers-more nginx-mod-http-geoip \
+  nginx nginx-mod-http-headers-more \
   bash runit \
   curl htop git libxml2-utils make openssh vim wget \
-  mysql-client \
-  redis \
-  nodejs yarn \
-  sassc
+  mysql-client redis \
+  nodejs sassc yarn \
+  msmtp \
+  procps patch
+
+# Configure msmtp
+RUN unlink /usr/sbin/sendmail \
+ && ln -s /usr/bin/msmtp /usr/sbin/sendmail
 
 # Add non-privileged web server user
 # Configure nginx and php
@@ -26,7 +34,8 @@ RUN deluser xfs \
  && mkfifo -m 777 $PHP_LOG_STREAM
 
 # n98-magerun for Magento 1
-RUN curl -sL https://files.magerun.net/n98-magerun-1.101.1.phar -o /usr/local/bin/n98-magerun \
+ENV MAGERUN_VERSION 1.102.0
+RUN curl -sL https://files.magerun.net/n98-magerun-$MAGERUN_VERSION.phar -o /usr/local/bin/n98-magerun \
  && chmod +x /usr/local/bin/n98-magerun \
  && n98-magerun --version
 
