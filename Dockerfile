@@ -11,7 +11,7 @@ RUN apk add --update --no-cache \
   composer php7-xdebug \
   nginx nginx-mod-http-headers-more \
   bash runit \
-  curl htop git libxml2-utils make openssh vim wget \
+  curl htop git libxml2-utils make openssh vim \
   mysql-client redis \
   nodejs sassc yarn \
   msmtp \
