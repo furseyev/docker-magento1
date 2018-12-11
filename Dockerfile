@@ -27,7 +27,7 @@ ENV PHP_LOG_STREAM="/var/log/php.log"
 RUN deluser xfs \
  && delgroup www-data \
  && addgroup -S -g 33 www-data \
- && adduser -S -D -u 33 -G www-data -s /bin/bash www-data \
+ && adduser -S -D -u 33 -G www-data -h /var/www -s /bin/bash www-data \
  && rm -f /etc/nginx/conf.d/default.conf \
  && ln -sf /dev/stdout /var/log/nginx/access.log \
  && ln -sf /dev/stderr /var/log/nginx/error.log \
