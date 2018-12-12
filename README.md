@@ -1,6 +1,6 @@
 # docker-magento1
 
-Opinionated Magento 1 docker image.
+Opinionated docker image for Magento 1.9.4+.
 
 ## Base image
 
