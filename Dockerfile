@@ -71,4 +71,4 @@ WORKDIR /var/www/magento1
 CMD ["/sbin/runsvdir", "/services"]
 
 # Expose ports
-EXPOSE 80
+EXPOSE 8080
