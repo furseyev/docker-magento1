@@ -28,6 +28,7 @@ RUN deluser xfs \
  && delgroup www-data \
  && addgroup -S -g 33 www-data \
  && adduser -S -D -u 33 -G www-data -h /var/www -s /bin/bash www-data \
+ && chown -R www-data:www-data /var/tmp/nginx \
  && rm -f /etc/nginx/conf.d/default.conf \
  && ln -sf /dev/stdout /var/log/nginx/access.log \
  && ln -sf /dev/stderr /var/log/nginx/error.log \
