@@ -1,9 +1,9 @@
 FROM alpine:3.8
-LABEL maintainer="Tom Richards <tom.r@delegator.com>"
+LABEL maintainer="Ihor Furseyev <i.furseyev@atwix.com>"
 LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.name="delegator/magento1"
+LABEL org.label-schema.name="furseyev/magento1"
 LABEL org.label-schema.description="Opinionated docker image for Magento 1.9.4+."
-LABEL org.label-schema.vcs-url="https://github.com/delegator/docker-magento1"
+LABEL org.label-schema.vcs-url="https://github.com/furseyev/docker-magento1"
 
 # Install packages
 RUN apk add --update --no-cache \
